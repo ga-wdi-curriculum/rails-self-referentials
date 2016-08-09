@@ -8,10 +8,11 @@
 
 
 ## Opening Framing
+
 We've learned about associations and how we can relate models to one another. Sometimes we need to associate instances of a model with other instances of the same model.
 
-### ST-WG
-Think of a couple of situations where we may need to do this behavior. Conceptually, how might we execute this? Think further and think at a high level how we might be able to program this.
+### Open Response: Brainstorming (5 min)
+Think of a couple of situations where we might need to associate a model with other instances of that model. Conceptually, how might we execute this? Think for a second about how aliasing or creating another name for a model might facilitate relating a model to other instances of a model.
 
 For the purposes of this class we'll be looking at how to execute friending functionality in a rails application. Though we are looking at the domain model for friending, the functionality we'll be coding can easily transfer to another domain.(following, messaging, etc..)
 
@@ -219,7 +220,7 @@ end
 
 > In the create action, were creating a new friendship in the database between the current user and the user with id specified in the `index` view. In the delete action, we're finding the friendship by it's id (in the `show` view) and destroying it in the database.
 
-Great, it's working! There's just a couple of problems...One problem is the user can friend himself! We can't have that. Additionally a user can friend someone multiple times, again it wouldn't make sense for this to be the case either.
+Great, it's working! There's just a couple of problems...One problem is the user can friend themself! We can't have that. Additionally a user can friend someone multiple times, again it wouldn't make sense for this to be the case either.
 
 Let's first create some validations in our `friendship` model. In `app/models/friendship.rb`:
 
