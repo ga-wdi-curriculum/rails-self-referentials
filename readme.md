@@ -18,7 +18,9 @@ For the purposes of this class we'll be looking at how to execute friending func
 
 The application we're about to build will have 2 models, `user` and `friendship`. We'll generate the `user` model with devise. The `friendship` model we'll be coding to be the join table that associates instances of users.
 
-Let's start by creating a rails application.
+### Let's start by creating a rails application! (5 min)
+
+
 
 ```bash
 $ rails new friending_with_rails -d postgresql
@@ -102,7 +104,7 @@ end
 
 > Another thing to note is that we aliased `friendship` here, much in the same way we aliased `user` before. Additionally in this association for `inverse_friendships`, we specify that the foreign key is `friend_id`. `:source` is used to define the associated model name for a `has_many :through`
 
-Let's update some routes, controllers and views so we can actually put these associations to use
+Let's update some routes, controllers and views so we can actually put these associations to use.
 
 In `config/routes.rb`:
 
@@ -136,6 +138,8 @@ end
 
 On to views! Let's first update the layout file in `app/viewslayouts/application.html.erb`:
 
+
+Replace with the following:
 ```html
 <body>
   <div id="container">
@@ -240,7 +244,7 @@ end
 
 > Note that even though its not saving anything to the databases in those fringe cases, it still says "Added friend." We need to update the ui such that should it not save, to display a message.
 
-Now we need to notify the user should it not pass these validations. In `app/controllers/friendship`:
+Now we need to notify the user should it not pass these validations. In `app/controllers/friendships_controller.rb`:
 
 ```ruby
 def create
