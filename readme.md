@@ -8,16 +8,19 @@
 
 
 ## Opening Framing
+
 We've learned about associations and how we can relate models to one another. Sometimes we need to associate instances of a model with other instances of the same model.
 
-### ST-WG
-Think of a couple of situations where we may need to do this behavior. Conceptually, how might we execute this? Think further and think at a high level how we might be able to program this.
+### Open Response: Brainstorming (5 min)
+Think of a couple of situations where we might need to associate a model with other instances of that model. Conceptually, how might we execute this? Think for a second about how aliasing or creating another name for a model might facilitate relating a model to other instances of a model.
 
 For the purposes of this class we'll be looking at how to execute friending functionality in a rails application. Though we are looking at the domain model for friending, the functionality we'll be coding can easily transfer to another domain.(following, messaging, etc..)
 
 The application we're about to build will have 2 models, `user` and `friendship`. We'll generate the `user` model with devise. The `friendship` model we'll be coding to be the join table that associates instances of users.
 
-Let's start by creating a rails application.
+### Let's start by creating a rails application! (5 min)
+
+
 
 ```bash
 $ rails new friending_with_rails -d postgresql
@@ -101,7 +104,7 @@ end
 
 > Another thing to note is that we aliased `friendship` here, much in the same way we aliased `user` before. Additionally in this association for `inverse_friendships`, we specify that the foreign key is `friend_id`. `:source` is used to define the associated model name for a `has_many :through`
 
-Let's update some routes, controllers and views so we can actually put these associations to use
+Let's update some routes, controllers and views so we can actually put these associations to use.
 
 In `config/routes.rb`:
 
@@ -135,6 +138,8 @@ end
 
 On to views! Let's first update the layout file in `app/viewslayouts/application.html.erb`:
 
+
+Replace with the following:
 ```html
 <body>
   <div id="container">
@@ -219,7 +224,7 @@ end
 
 > In the create action, were creating a new friendship in the database between the current user and the user with id specified in the `index` view. In the delete action, we're finding the friendship by it's id (in the `show` view) and destroying it in the database.
 
-Great, it's working! There's just a couple of problems...One problem is the user can friend himself! We can't have that. Additionally a user can friend someone multiple times, again it wouldn't make sense for this to be the case either.
+Great, it's working! There's just a couple of problems...One problem is the user can friend themself! We can't have that. Additionally a user can friend someone multiple times, again it wouldn't make sense for this to be the case either.
 
 Let's first create some validations in our `friendship` model. In `app/models/friendship.rb`:
 
@@ -239,7 +244,7 @@ end
 
 > Note that even though its not saving anything to the databases in those fringe cases, it still says "Added friend." We need to update the ui such that should it not save, to display a message.
 
-Now we need to notify the user should it not pass these validations. In `app/controllers/friendship`:
+Now we need to notify the user should it not pass these validations. In `app/controllers/friendships_controller.rb`:
 
 ```ruby
 def create
